@@ -5,61 +5,81 @@ import java.util.List;
 
 
 public class Node {
-     private  int depth;
-     private  Node parent;
-     private  List<Node> children = new LinkedList<>();
+     private  final String name;
+     private  final int depth;
+     private  final Node parent;
+     private  final List<Node> children;
 
-    private Node(int depth, Node parent) {
+    private Node(String nameNode, int depth, Node parent) {
+        this.name = nameNode;
         this.depth = depth;
         this.parent = parent;
+        this.children = new LinkedList<>();
     }
 
-    public Node addNode(int depth){
+    public static Node firsNode(String nameNode){
+        return new Node(nameNode,0, null);
+    }
+
+    public Node addNode(String nameNode, int depth){
         Node node;
         if (this.depth < depth ){
-            node = new Node(depth, this);
+            node = new Node(nameNode,depth, this);
             this.children.add(node);
         }else if (this.depth == depth){
-            node = new Node(depth, this.parent);
+            node = new Node(nameNode,depth, this.parent);
             this.parent.children.add(node);
         }else {
-            node = findNode(this,depth);
+            Node parent = findParentNode(this,depth);
+            node = new Node(nameNode,depth, parent);
+            parent.children.add(node);
         }
         return node;
     }
 
-    private Node findNode(Node node,int depth){
-        if (node.depth == depth) {
-            Node node1 = new Node(depth, this.parent);
-            node.parent.children.add(node1);
+    private Node findParentNode(Node node, int depth){
+        if (node.depth < depth) {
             return node;
-        } else {
-           return findNode(node.parent, depth);
+        }else if (node.depth == depth){
+            return node.parent;
+        }else
+           return findParentNode(node.parent, depth);
         }
 
+
+
+
+
+//    public static void main(String[] args) {
+//        Node node = firsNode();
+//        node.addNode(1).addNode(2).addNode(2).addNode(3).addNode(2).addNode(1).addNode(4).addNode(2).addNode(1).addNode(2).addNode(3);
+//        print(node, 0);
+//
+//    }
+    public String print(Node node){
+        StringBuilder sb = new StringBuilder();
+        print(node, 0, sb);
+        return sb.toString();
     }
 
-    public static Node firsNode(){
-        return new Node(0, null);
-    }
-
-    public static void main(String[] args) {
-        Node node = firsNode();
-        node.addNode(1).addNode(2).addNode(2).addNode(3).addNode(2).addNode(1);
-        print(node);
-
-    }
-
-    private static void print(Node node){
+    private void print(Node node, int countSpace, StringBuilder result){
+        for(int i = 0; i < countSpace; i++){
+            result.append("_____");
+        }
+        result.append(node.name).append("<br/>");
         if (!node.children.isEmpty()){
-            System.out.println(node);
-        } else return;
+            for (Node n : node.children){
+                print(n, countSpace+1,result);
+            }
+        }else return;
+
     }
 
     @Override
     public String toString() {
         return "Node{" +
-                "depth=" + depth +
+                "name='" + name + '\'' +
+                ", depth=" + depth +
                 '}';
     }
 }

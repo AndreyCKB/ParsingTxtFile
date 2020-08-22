@@ -22,13 +22,7 @@ public class ClientController {
         String name ="MY";
         if (!file.isEmpty()) {
             try {
-
                 fileProcessing.parsingTxtFile(file);
-//                byte[] bytes = file.getBytes();
-//                BufferedOutputStream stream =
-//                        new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
-//                stream.write(bytes);
-//                stream.close();
                 return "Вы удачно загрузили " + name + " в " + name + "-uploaded !";
             } catch (Exception e) {
                 return "Вам не удалось загрузить " + name + " => " + e.getMessage();
