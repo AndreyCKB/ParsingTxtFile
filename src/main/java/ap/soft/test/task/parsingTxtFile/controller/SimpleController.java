@@ -31,6 +31,7 @@ public class SimpleController {
             try {
                 dataProcessedFromTextFile = fileProcessing.parsingTxtFile(file);
             } catch (Exception e) {
+                e.printStackTrace();
             }
             model.addAttribute("strings", dataProcessedFromTextFile.getStrings());
             Node firstNode = dataProcessedFromTextFile.getFirstNode();

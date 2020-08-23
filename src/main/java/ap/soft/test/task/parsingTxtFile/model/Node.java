@@ -5,20 +5,20 @@ import java.util.List;
 
 
 public class Node {
-     private  final String name;
+     private  final String lineID;
      private  final int depth;
      private  final Node parent;
      private  final List<Node> children;
 
     private Node(String nameNode, int depth, Node parent) {
-        this.name = nameNode;
+        this.lineID = nameNode;
         this.depth = depth;
         this.parent = parent;
         this.children = new LinkedList<>();
     }
 
-    public static Node firsNode(String nameNode){
-        return new Node(nameNode,0, null);
+    public static Node firstNode(String lineID){
+        return new Node(lineID,0, null);
     }
 
     public Node addNode(String nameNode, int depth){
@@ -66,7 +66,7 @@ public class Node {
         for(int i = 0; i < countSpace; i++){
             result.append("_____");
         }
-        result.append(node.name).append("<br/>");
+        result.append(node.lineID).append("<br/>");
         if (!node.children.isEmpty()){
             for (Node n : node.children){
                 print(n, countSpace+1,result);
@@ -78,7 +78,7 @@ public class Node {
     @Override
     public String toString() {
         return "Node{" +
-                "name='" + name + '\'' +
+                "name='" + lineID + '\'' +
                 ", depth=" + depth +
                 '}';
     }

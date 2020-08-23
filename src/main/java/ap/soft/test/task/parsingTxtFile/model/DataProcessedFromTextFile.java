@@ -3,16 +3,25 @@ package ap.soft.test.task.parsingTxtFile.model;
 import java.util.Collections;
 import java.util.List;
 
-public class DataProcessedFromTextFile {
-    private final Node firstNode;
-    private Node node;
-    private final List<String> strings;
+public abstract class  DataProcessedFromTextFile {
+    protected final Node firstNode;
+    protected final List<String> strings;
+    protected Node currentNode;
+    protected int countNode;
 
-    public DataProcessedFromTextFile(Node node, List<String> strings) {
-        this.firstNode = node;
-        this.node = node;
+
+    public DataProcessedFromTextFile(String currentLine, List<String> strings) {
         this.strings = strings;
+        this.countNode = 0;
+        addFirstLine(currentLine);
+        this.firstNode = initFirstNode();
     }
+
+    public abstract void addString(String currentLine);
+
+    protected abstract Node initFirstNode();
+
+    protected abstract void addFirstLine(String currentLine);
 
     public Node getFirstNode() {
         return firstNode;
@@ -22,20 +31,21 @@ public class DataProcessedFromTextFile {
         return Collections.unmodifiableList(strings);
     }
 
-    public void addString(String str){
-        strings.add(str);
+    protected boolean isAddEmptyLine(String currentLine){
+        if (currentLine.isEmpty()){
+            strings.add(currentLine);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void addNode(String nameNode, int deph){
-        node = node.addNode(nameNode,deph);
+    protected int getDepth(char[] chars){
+        int result = 0;
+        while (chars[result] == '#'){
+            ++result;
+        }
+        return result;
     }
 
-    @Override
-    public String toString() {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        firstNode.print(firstNode,0, stringBuilder);
-        return  //stringBuilder.toString() +
-                "strings=" + strings +
-                '}';
-    }
 }
