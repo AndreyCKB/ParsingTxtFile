@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Node implements Serializable {
+public class Node<T> implements Serializable {
 
-    private  final String lineID;
+    private  final T lineID;
     private  final int depth;
 
     @JsonIgnore
@@ -18,28 +18,28 @@ public class Node implements Serializable {
 
     private  final List<Node> children;
 
-    private Node(String nameNode, int depth, Node parent) {
-        this.lineID = nameNode;
+    private Node(T lineID, int depth, Node parent) {
+        this.lineID = lineID;
         this.depth = depth;
         this.parent = parent;
         this.children = new LinkedList<>();
     }
 
-    public static Node firstNode(String lineID){
+    public static <T> Node firstNode(T lineID){
         return new Node(lineID,0, null);
     }
 
-    public Node addNode(String nameNode, int depth){
+    public Node addNode(T lineID, int depth){
         Node node;
         if (this.depth < depth ){
-            node = new Node(nameNode,depth, this);
+            node = new Node(lineID,depth, this);
             this.children.add(node);
         }else if (this.depth == depth){
-            node = new Node(nameNode,depth, this.parent);
+            node = new Node(lineID,depth, this.parent);
             this.parent.children.add(node);
         }else {
             Node parent = findParentNode(this,depth);
-            node = new Node(nameNode,depth, parent);
+            node = new Node(lineID,depth, parent);
             parent.children.add(node);
         }
         return node;
@@ -70,7 +70,7 @@ public class Node implements Serializable {
         return sb.toString();
     }
 
-    private void print(Node node, int countSpace, StringBuilder result){
+    private void print(Node<?> node, int countSpace, StringBuilder result){
         for(int i = 0; i < countSpace; i++){
             result.append("_____");
         }

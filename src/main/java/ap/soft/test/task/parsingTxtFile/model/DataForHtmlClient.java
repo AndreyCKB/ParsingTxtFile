@@ -2,15 +2,15 @@ package ap.soft.test.task.parsingTxtFile.model;
 
 import java.util.List;
 
-public class DataForHtmlClient extends DataProcessedFromTextFile{
+public class DataForHtmlClient extends DataHandlerFromTextFile {
 
-    public DataForHtmlClient(String currentLine, List<String> strings) {
-        super(currentLine, strings);
+    public DataForHtmlClient(char signSection, String currentLine, List<String> strings) {
+        super(signSection, currentLine, strings);
     }
 
     @Override
     public void addString(String currentLine) {
-        if (currentLine.isEmpty() || currentLine.toCharArray()[0] != '#' ){
+        if (currentLine.isEmpty() || currentLine.toCharArray()[0] != signSection ){
             strings.add(currentLine);
         }else {
             strings.add("<a name=\"" + (++countNode) + "\"></a>" + currentLine);

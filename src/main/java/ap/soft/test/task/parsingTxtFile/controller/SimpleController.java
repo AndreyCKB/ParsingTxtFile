@@ -1,6 +1,6 @@
 package ap.soft.test.task.parsingTxtFile.controller;
 
-import ap.soft.test.task.parsingTxtFile.model.DataProcessedFromTextFile;
+import ap.soft.test.task.parsingTxtFile.model.DataHandlerFromTextFile;
 import ap.soft.test.task.parsingTxtFile.model.Node;
 import ap.soft.test.task.parsingTxtFile.service.FileProcessing;
 import org.springframework.stereotype.Controller;
@@ -26,15 +26,15 @@ public class SimpleController {
 
     @PostMapping("/main")
     public String main(@RequestParam("txt_file") MultipartFile file, Model model){
-        DataProcessedFromTextFile dataProcessedFromTextFile = null;
+        DataHandlerFromTextFile dataHandlerFromTextFile = null;
         if (!file.isEmpty()) {
             try {
-                dataProcessedFromTextFile = fileProcessing.parsingTxtFile(file);
+                dataHandlerFromTextFile = fileProcessing.parsingTxtFile(file, "DataForHtmlClient");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            model.addAttribute("strings", dataProcessedFromTextFile.getStrings());
-            Node firstNode = dataProcessedFromTextFile.getFirstNode();
+            model.addAttribute("strings", dataHandlerFromTextFile.getStrings());
+            Node firstNode = dataHandlerFromTextFile.getFirstNode();
 
             model.addAttribute("nodes", firstNode.print(firstNode));
         }

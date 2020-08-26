@@ -1,8 +1,9 @@
 package ap.soft.test.task.parsingTxtFile.service;
 
 import ap.soft.test.task.parsingTxtFile.model.DataForHtmlClient;
-import ap.soft.test.task.parsingTxtFile.model.DataProcessedFromTextFile;
+import ap.soft.test.task.parsingTxtFile.model.DataHandlerFromTextFile;
 
+import ap.soft.test.task.parsingTxtFile.model.IndexedLinesArrayClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,16 +17,25 @@ import java.util.ArrayList;
 @Service
 public class FileProcessing {
 
-    public DataProcessedFromTextFile  parsingTxtFile(MultipartFile file) throws IOException, ReadOnlyFileSystemException {
-        DataProcessedFromTextFile result;
+    public DataHandlerFromTextFile parsingTxtFile(MultipartFile file, String clientType) throws IOException, ReadOnlyFileSystemException {
+        DataHandlerFromTextFile result;
         BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         if (reader.ready()) {
-            result = new DataForHtmlClient(reader.readLine(),new ArrayList<String>());
+            result = handlerTextFile(clientType, reader.readLine());
         } else {
-            throw new RuntimeException("Ошибка при чтении файла");
+            throw new RuntimeException("Error reading file.");
         }
         while (reader.ready()){
             result.addString(reader.readLine());
+        }
+        return result;
+    }
+
+    private DataHandlerFromTextFile handlerTextFile(String clientType, String currentLine){
+        DataHandlerFromTextFile result = null;
+        switch (clientType){
+            case "IndexedLinesArrayClient": result = new IndexedLinesArrayClient('#', currentLine, new ArrayList<>());
+            case "DataForHtmlClient" : result = new DataForHtmlClient('#', currentLine, new ArrayList<>());
         }
         return result;
     }

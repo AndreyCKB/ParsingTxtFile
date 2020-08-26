@@ -7,17 +7,20 @@ import java.util.Collections;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class  DataProcessedFromTextFile {
+public abstract class DataHandlerFromTextFile {
 
     protected final Node firstNode;
     protected final List<String> strings;
     @JsonIgnore
     protected Node currentNode;
     @JsonIgnore
+    protected final char signSection;
+    @JsonIgnore
     protected int countNode;
 
 
-    public DataProcessedFromTextFile(String currentLine, List<String> strings) {
+    public DataHandlerFromTextFile(char signSection, String currentLine, List<String> strings) {
+        this.signSection = signSection;
         this.strings = strings;
         this.countNode = 0;
         this.firstNode = initFirstNode();
@@ -44,7 +47,7 @@ public abstract class  DataProcessedFromTextFile {
 
     protected int getDepth(char[] chars){
         int result = 0;
-        while (chars[result] == '#'){
+        while (chars[result] == signSection){
             ++result;
         }
         return result;

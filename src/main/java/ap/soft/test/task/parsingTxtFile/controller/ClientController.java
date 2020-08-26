@@ -22,7 +22,7 @@ public class ClientController {
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws MultipartException, IllegalStateException  {
         if (!file.isEmpty()) {
             try {
-                return new ResponseEntity<>(fileProcessing.parsingTxtFile(file), HttpStatus.OK);
+                return new ResponseEntity<>(fileProcessing.parsingTxtFile(file, "IndexedLinesArrayClient"), HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>("File is not read", HttpStatus.EXPECTATION_FAILED);
             }
@@ -30,6 +30,13 @@ public class ClientController {
             return new ResponseEntity<>("File is empty", HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+    @RequestMapping("/*")
+    @ResponseBody
+    ResponseEntity<?> multipartException() {
+        return new ResponseEntity<>("Incorrect URL. Correct URL  http://localhost:8080/upload; PostRequest with parameter file.", HttpStatus.NOT_FOUND);
+    }
+
 
 
 }
