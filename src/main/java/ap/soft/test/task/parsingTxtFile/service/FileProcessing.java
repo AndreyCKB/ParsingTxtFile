@@ -2,7 +2,7 @@ package ap.soft.test.task.parsingTxtFile.service;
 
 import ap.soft.test.task.parsingTxtFile.model.DataForHtmlClient;
 import ap.soft.test.task.parsingTxtFile.model.DataProcessedFromTextFile;
-import ap.soft.test.task.parsingTxtFile.model.Node;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -10,7 +10,7 @@ public class DataForHtmlClient extends DataProcessedFromTextFile{
 
     @Override
     public void addString(String currentLine) {
-        if ( !isAddEmptyLine(currentLine) && currentLine.toCharArray()[0] != '#' ){
+        if (currentLine.isEmpty() || currentLine.toCharArray()[0] != '#' ){
             strings.add(currentLine);
         }else {
             strings.add("<a name=\"" + (++countNode) + "\"></a>" + currentLine);

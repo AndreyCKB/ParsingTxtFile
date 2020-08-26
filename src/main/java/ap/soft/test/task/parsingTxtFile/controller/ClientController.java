@@ -1,10 +1,11 @@
 package ap.soft.test.task.parsingTxtFile.controller;
 
 import ap.soft.test.task.parsingTxtFile.service.FileProcessing;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.*;
 
 
 @RestController
@@ -16,20 +17,19 @@ public class ClientController {
         this.fileProcessing = fileProcessing;
     }
 
-    @PostMapping(value="/upload")
-    public @ResponseBody String handleFileUpload(
-                                                  @RequestParam("txt_file") MultipartFile file){
-        String name ="MY";
+
+    @PostMapping(value = "/upload")
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws MultipartException, IllegalStateException  {
         if (!file.isEmpty()) {
             try {
-                fileProcessing.parsingTxtFile(file);
-                return "Вы удачно загрузили " + name + " в " + name + "-uploaded !";
+                return new ResponseEntity<>(fileProcessing.parsingTxtFile(file), HttpStatus.OK);
             } catch (Exception e) {
-                return "Вам не удалось загрузить " + name + " => " + e.getMessage();
+                return new ResponseEntity<>("File is not read", HttpStatus.EXPECTATION_FAILED);
             }
-
         } else {
-            return "Вам не удалось загрузить " + name + " потому что файл пустой.";
+            return new ResponseEntity<>("File is empty", HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+
 }

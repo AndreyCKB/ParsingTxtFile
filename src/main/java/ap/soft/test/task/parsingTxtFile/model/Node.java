@@ -1,14 +1,22 @@
 package ap.soft.test.task.parsingTxtFile.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class Node implements Serializable {
 
-public class Node {
-     private  final String lineID;
-     private  final int depth;
-     private  final Node parent;
-     private  final List<Node> children;
+    private  final String lineID;
+    private  final int depth;
+
+    @JsonIgnore
+    private  final Node parent;
+
+    private  final List<Node> children;
 
     private Node(String nameNode, int depth, Node parent) {
         this.lineID = nameNode;
