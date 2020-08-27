@@ -3,20 +3,17 @@ package ap.soft.test.task.parsingTxtFile.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Node<T> implements Serializable {
+public class Node<T> {
 
-    private  final T lineID;
-    private  final int depth;
-
+    private final T lineID;
+    private final int depth;
     @JsonIgnore
-    private  final Node parent;
-
-    private  final List<Node> children;
+    private final Node parent;
+    private final List<Node<T>> children;
 
     private Node(T lineID, int depth, Node parent) {
         this.lineID = lineID;
@@ -25,21 +22,33 @@ public class Node<T> implements Serializable {
         this.children = new LinkedList<>();
     }
 
-    public static <T> Node firstNode(T lineID){
+    public T getLineID() {
+        return lineID;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public List<Node<T>> getChildren() {
+        return children;
+    }
+
+    public static <T> Node<T> firstNode(T lineID){
         return new Node(lineID,0, null);
     }
 
     public Node addNode(T lineID, int depth){
         Node node;
         if (this.depth < depth ){
-            node = new Node(lineID,depth, this);
+            node = new Node(lineID, depth, this);
             this.children.add(node);
         }else if (this.depth == depth){
-            node = new Node(lineID,depth, this.parent);
+            node = new Node(lineID, depth, this.parent);
             this.parent.children.add(node);
         }else {
             Node parent = findParentNode(this,depth);
-            node = new Node(lineID,depth, parent);
+            node = new Node(lineID, depth, parent);
             parent.children.add(node);
         }
         return node;
@@ -51,43 +60,15 @@ public class Node<T> implements Serializable {
         }else if (node.depth == depth){
             return node.parent;
         }else
-           return findParentNode(node.parent, depth);
+            return findParentNode(node.parent, depth);
         }
-
-
-
-
-
-//    public static void main(String[] args) {
-//        Node node = firsNode();
-//        node.addNode(1).addNode(2).addNode(2).addNode(3).addNode(2).addNode(1).addNode(4).addNode(2).addNode(1).addNode(2).addNode(3);
-//        print(node, 0);
-//
-//    }
-    public String print(Node node){
-        StringBuilder sb = new StringBuilder();
-        print(node, 0, sb);
-        return sb.toString();
-    }
-
-    private void print(Node<?> node, int countSpace, StringBuilder result){
-        for(int i = 0; i < countSpace; i++){
-            result.append("_____");
-        }
-        result.append(node.lineID).append("<br/>");
-        if (!node.children.isEmpty()){
-            for (Node n : node.children){
-                print(n, countSpace+1,result);
-            }
-        }else return;
-
-    }
 
     @Override
     public String toString() {
         return "Node{" +
                 "name='" + lineID + '\'' +
                 ", depth=" + depth +
+                ", children.size=" + ( children != null ? children.size() + "" : 0 ) + "" +
                 '}';
     }
 }

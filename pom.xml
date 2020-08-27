@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>ap.soft.test.task</groupId>
 	<artifactId>parsingTxtFile</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>parsingTxtFile</name>
-	<description>Test task of parsing a file into its companent partsproject for Spring Boot</description>
+	<description>Test task of parsing a file into its component parts project for Spring Boot</description>
 
 	<properties>
 		<java.version>11</java.version>

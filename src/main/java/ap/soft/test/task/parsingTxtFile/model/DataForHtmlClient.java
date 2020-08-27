@@ -1,11 +1,17 @@
 package ap.soft.test.task.parsingTxtFile.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
-public class DataForHtmlClient extends DataHandlerFromTextFile {
+public class DataForHtmlClient extends FileStructure {
+
+    @JsonIgnore
+    private int countNode;
 
     public DataForHtmlClient(char signSection, String currentLine, List<String> strings) {
         super(signSection, currentLine, strings);
+        this.countNode = 0;
+        addFirstLine(currentLine);
     }
 
     @Override
@@ -23,9 +29,10 @@ public class DataForHtmlClient extends DataHandlerFromTextFile {
         return Node.firstNode("<a href=\"#start\">Начало документа</a>");
     }
 
-    @Override
-    protected void addFirstLine(String currentLine) {
+    private void addFirstLine(String currentLine) {
         this.addString(currentLine);
-        strings.add(0,"<a name=\"start\"></a>" + strings.get(0));
+        String s = "<a name=\"start\"></a>" + strings.get(0);
+        strings.remove(0);
+        strings.add(s);
     }
 }

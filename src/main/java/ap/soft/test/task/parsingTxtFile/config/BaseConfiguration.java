@@ -12,7 +12,6 @@ import javax.servlet.MultipartConfigElement;
 
 @Configuration
 @ComponentScan
-@EnableWebMvc
 @EnableAutoConfiguration
 public class BaseConfiguration {
 
