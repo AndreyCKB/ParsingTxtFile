@@ -29,15 +29,18 @@ public class SimpleController {
     @PostMapping("/main")
     public String main(@RequestParam("txt_file") MultipartFile file, Model model){
         FileStructure fileStructure = null;
-        if (!file.isEmpty()) {
+        if (file !=null && !file.isEmpty()) {
             try {
                 fileStructure = fileProcessing.parsingTxtFile(file, ClientType.HTML_CLIENT);
             } catch (Exception e) {
                 e.printStackTrace();
+                model.addAttribute("errorMessage", "File is not read");
             }
             model.addAttribute("strings", fileStructure.getStrings());
             Node firstNode = fileStructure.getFirstNode();
             model.addAttribute("nodes", print(firstNode));
+        } else {
+            model.addAttribute("errorMessage", "File is empty");
         }
         return "main";
     }

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+    <html xmlns:th="http://www.thymeleaf.org">
+    <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
-<form method="POST" enctype="multipart/form-data"
-      action="/main">
-    Select a text file: <input type="file" name="txt_file">
-    <br />
-    <br />
-    Press here to upload the file! <input type="submit"  value="Upload">
-</form>
-    <span th:utext="${nodes}"></span>
-    <span th:each="str : ${strings}" th:utext="${str}">
-
+    <p th:utext="${errorMessage}" style="color: red"></p>
+    <form method="POST" enctype="multipart/form-data"
+          action="/main">
+        Select a text file: <input type="file" name="txt_file">
+        <br/>
+        <br/>
+        Press here to upload the file! <input type="submit"  value="Upload">
+    </form>
+    <br/>
+    <br/>
+    <span th:utext="${nodes}">
     </span>
-
+    <br/>
+    <br/>
+    <span th:each="str : ${strings}" th:utext="${str} + '<br/>'">
+    </span>
 </body>
 </html>

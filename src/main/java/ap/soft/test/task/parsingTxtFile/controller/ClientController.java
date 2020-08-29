@@ -29,10 +29,11 @@ public class ClientController {
     }
 
     private ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, ClientType clientType)  {
-        if (file != null  && !file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 return new ResponseEntity<>(fileProcessing.parsingTxtFile(file, clientType), HttpStatus.OK);
             } catch (Exception e) {
+                e.printStackTrace();
                 return new ResponseEntity<>("File is not read", HttpStatus.EXPECTATION_FAILED);
             }
         } else {
@@ -40,17 +41,30 @@ public class ClientController {
         }
     }
 
-    @RequestMapping("/*")
-    @ResponseBody
-    public ResponseEntity<?> multipartException() {
-        return new ResponseEntity<>("Incorrect URL. Correct Post request on URL  http://localhost:8080/arrayClient " +
-                                          "or http://localhost:8080/htmlClient  with parameter file."
-                                    , HttpStatus.NOT_FOUND);
+    @RequestMapping("/exit")
+    public ResponseEntity<?> serviceDisable() {
+        disable();
+        return  new ResponseEntity<>("Service disabled", HttpStatus.OK);
     }
 
-    @RequestMapping("/exit")
-    public void exit() {
-        System.exit(0);
+    private void disable(){
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                System.exit(0);
+            }
+        });
+        thread.start();
+    }
+
+    @RequestMapping("/*")
+    public ResponseEntity<?> multipartException() {
+        return new ResponseEntity<>("Incorrect URL. Correct Post request on URL  http://localhost:8080/arrayClient " +
+                "or http://localhost:8080/htmlClient  with parameter file."
+                , HttpStatus.NOT_FOUND);
     }
 
 }

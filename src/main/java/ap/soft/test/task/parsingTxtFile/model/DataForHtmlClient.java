@@ -31,8 +31,6 @@ public class DataForHtmlClient extends FileStructure {
 
     private void addFirstLine(String currentLine) {
         this.addString(currentLine);
-        String s = "<a name=\"start\"></a>" + strings.get(0);
-        strings.remove(0);
-        strings.add(s);
+        strings.set(0,"<a name=\"start\"></a>" + strings.get(0));
     }
 }

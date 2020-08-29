@@ -13,7 +13,7 @@ public class ErrorController {
 
     @ExceptionHandler(MultipartException.class)
     @ResponseBody
-    ResponseEntity<?> multipartException(MultipartException e) {
+    ResponseEntity<?> multipartException() {
         return new ResponseEntity<>("File not found", HttpStatus.EXPECTATION_FAILED);
     }
 
