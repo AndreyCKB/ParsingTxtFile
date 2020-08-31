@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
 public class ClientController {
 
@@ -58,12 +57,5 @@ public class ClientController {
         });
         thread.start();
     }
-
-//    @RequestMapping("/*")
-//    public ResponseEntity<?> multipartException() {
-//        return new ResponseEntity<>("Incorrect URL. Correct Post request on URL  http://localhost:8080/arrayClient " +
-//                "or http://localhost:8080/htmlClient  with parameter file."
-//                , HttpStatus.NOT_FOUND);
-//    }
 
 }

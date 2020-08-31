@@ -18,7 +18,7 @@ public class HandlerTextFileImpl implements HandlerTextFile {
         FileStructure result;
         BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         if (reader.ready()) {
-            result = clientType.getFileStructure('#', reader.readLine(), new ArrayList<>());
+            result = clientType.getFileStructure('#', reader.readLine(), new ArrayList<>(500));
         } else {
             throw new RuntimeException("Error reading file.");
         }

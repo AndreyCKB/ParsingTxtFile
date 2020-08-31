@@ -23,7 +23,7 @@ public class SimpleController {
 
     @GetMapping("/main")
     public String mainA(){
-        return "main";
+        return "view";
     }
 
     @PostMapping("/main")
@@ -63,6 +63,5 @@ public class SimpleController {
             return;
         }
     }
-
 
 }

@@ -1,7 +1,6 @@
 package ap.soft.test.task.parsingTxtFile.model;
 
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 

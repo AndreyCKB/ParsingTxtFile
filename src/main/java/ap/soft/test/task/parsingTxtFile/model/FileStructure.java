@@ -42,4 +42,13 @@ public abstract class FileStructure {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "FileStructure{" +
+                "firstNode=" + firstNode +
+                ", strings=" + strings +
+                ", currentNode=" + currentNode +
+                ", signSection=" + signSection +
+                '}';
+    }
 }
