@@ -38,11 +38,11 @@ public class SimpleController {
             }
             model.addAttribute("strings", fileStructure.getStrings());
             Node firstNode = fileStructure.getFirstNode();
-            model.addAttribute("nodes", print(firstNode));
+            model.addAttribute("nodes", "<ul class=\"treeCSS\">" + print(firstNode) + "</ul>");
         } else {
             model.addAttribute("errorMessage", "File is empty");
         }
-        return "main";
+        return "view";
     }
 
     public String print(Node node){
@@ -52,15 +52,16 @@ public class SimpleController {
     }
 
     private void print(Node<?> node, int countSpace, StringBuilder result) {
-        for (int i = 0; i < countSpace; i++) {
-            result.append("_____");
-        }
-        result.append(node.getLineID()).append("_(Depth = ").append(node.getDepth()).append(" )<br/>");
         if (!node.getChildren().isEmpty()) {
+            result.append("<li>").append(node.getLineID()).append("_(Depth = ").append(node.getDepth()).append(" )<ul>");
             for (Node n : node.getChildren()) {
                 print(n, countSpace + 1, result);
             }
-        } else return;
+            result.append("</ul>");
+        } else {
+            result.append("<li>").append(node.getLineID()).append("_(Depth = ").append(node.getDepth());
+            return;
+        }
     }
 
 

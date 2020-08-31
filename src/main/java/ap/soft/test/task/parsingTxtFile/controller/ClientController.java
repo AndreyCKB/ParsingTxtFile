@@ -5,7 +5,6 @@ import ap.soft.test.task.parsingTxtFile.service.HandlerTextFile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -60,11 +59,11 @@ public class ClientController {
         thread.start();
     }
 
-    @RequestMapping("/*")
-    public ResponseEntity<?> multipartException() {
-        return new ResponseEntity<>("Incorrect URL. Correct Post request on URL  http://localhost:8080/arrayClient " +
-                "or http://localhost:8080/htmlClient  with parameter file."
-                , HttpStatus.NOT_FOUND);
-    }
+//    @RequestMapping("/*")
+//    public ResponseEntity<?> multipartException() {
+//        return new ResponseEntity<>("Incorrect URL. Correct Post request on URL  http://localhost:8080/arrayClient " +
+//                "or http://localhost:8080/htmlClient  with parameter file."
+//                , HttpStatus.NOT_FOUND);
+//    }
 
 }
