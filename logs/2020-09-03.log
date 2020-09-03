@@ -1,0 +1,45 @@
+19:42:22.156 INFO  [main] a.s.t.t.p.ParsingTxtFileApplication - Starting ParsingTxtFileApplication on Andrey-ПК with PID 4772 (C:\parsingTxtFile\target\classes started by Andrey in C:\parsingTxtFile)
+19:42:22.237 DEBUG [main] a.s.t.t.p.ParsingTxtFileApplication - Running with Spring Boot v2.3.3.RELEASE, Spring v5.2.8.RELEASE
+19:42:22.241 INFO  [main] a.s.t.t.p.ParsingTxtFileApplication - No active profile set, falling back to default profiles: default
+19:42:31.045 INFO  [main] a.s.t.t.p.ParsingTxtFileApplication - Started ParsingTxtFileApplication in 11.878 seconds (JVM running for 13.944)
+19:43:11.410 INFO  [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - @PostMapping(/main) with parameter MultipartFile. File.size = 41394 bytes, File.name = A1.txt
+19:43:11.412 DEBUG [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - File processing to start
+19:43:11.554 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 0  new Node depth= 1
+19:43:11.654 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 0 < 1 => parent found = Node{lineID='<a href="#start">Начало документа</a>', children.size=0, depth=0}
+19:43:11.673 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#1">1</a>', children.size=0, depth=1} his parent Node{lineID='<a href="#start">Начало документа</a>', children.size=1, depth=0}
+19:43:11.680 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 1  new Node depth= 2
+19:43:11.680 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 1 < 2 => parent found = Node{lineID='<a href="#1">1</a>', children.size=0, depth=1}
+19:43:11.680 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#2">2</a>', children.size=0, depth=2} his parent Node{lineID='<a href="#1">1</a>', children.size=1, depth=1}
+19:43:11.691 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 2  new Node depth= 4
+19:43:11.695 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 2 < 4 => parent found = Node{lineID='<a href="#2">2</a>', children.size=0, depth=2}
+19:43:11.695 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#3">3</a>', children.size=0, depth=4} his parent Node{lineID='<a href="#2">2</a>', children.size=1, depth=2}
+19:43:11.697 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 4  new Node depth= 3
+19:43:11.711 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 4 > 3 =>  we continue fiend a parent
+19:43:11.712 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 2  new Node depth= 3
+19:43:11.713 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 2 < 3 => parent found = Node{lineID='<a href="#2">2</a>', children.size=1, depth=2}
+19:43:11.714 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#4">4</a>', children.size=0, depth=3} his parent Node{lineID='<a href="#2">2</a>', children.size=2, depth=2}
+19:43:11.723 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 3  new Node depth= 2
+19:43:11.724 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 3 > 2 =>  we continue fiend a parent
+19:43:11.724 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 2  new Node depth= 2
+19:43:11.726 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 2 = 2 => parent found = Node{lineID='<a href="#1">1</a>', children.size=1, depth=1}
+19:43:11.727 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#5">5</a>', children.size=0, depth=2} his parent Node{lineID='<a href="#1">1</a>', children.size=2, depth=1}
+19:43:11.731 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 2  new Node depth= 3
+19:43:11.733 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 2 < 3 => parent found = Node{lineID='<a href="#5">5</a>', children.size=0, depth=2}
+19:43:11.735 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#6">6</a>', children.size=0, depth=3} his parent Node{lineID='<a href="#5">5</a>', children.size=1, depth=2}
+19:43:11.745 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 3  new Node depth= 3
+19:43:11.745 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 3 = 3 => parent found = Node{lineID='<a href="#5">5</a>', children.size=1, depth=2}
+19:43:11.745 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#7">7</a>', children.size=0, depth=3} his parent Node{lineID='<a href="#5">5</a>', children.size=2, depth=2}
+19:43:11.748 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 3  new Node depth= 3
+19:43:11.748 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 3 = 3 => parent found = Node{lineID='<a href="#5">5</a>', children.size=2, depth=2}
+19:43:11.749 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#8">8</a>', children.size=0, depth=3} his parent Node{lineID='<a href="#5">5</a>', children.size=3, depth=2}
+19:43:11.750 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 3  new Node depth= 1
+19:43:11.751 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 3 > 1 =>  we continue fiend a parent
+19:43:11.752 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 2  new Node depth= 1
+19:43:11.753 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 2 > 1 =>  we continue fiend a parent
+19:43:11.753 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Current Node depth = 1  new Node depth= 1
+19:43:11.753 DEBUG [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - 1 = 1 => parent found = Node{lineID='<a href="#start">Начало документа</a>', children.size=1, depth=0}
+19:43:11.754 INFO  [http-nio-8080-exec-5] a.s.t.task.parsingTxtFile.model.Node - Created Node{lineID='<a href="#9">9</a>', children.size=0, depth=1} his parent Node{lineID='<a href="#start">Начало документа</a>', children.size=2, depth=0}
+19:43:11.754 INFO  [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - Strings and Nodes adding to model
+19:43:11.755 DEBUG [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - Strings added to model
+19:43:11.770 INFO  [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - Strings and Nodes added to model
+19:43:11.771 DEBUG [http-nio-8080-exec-5] a.s.t.t.p.c.SimpleController - HTML page "view.html" sent to user
