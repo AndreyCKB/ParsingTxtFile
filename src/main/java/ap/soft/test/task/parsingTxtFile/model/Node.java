@@ -52,7 +52,7 @@ public class Node<T> {
     }
 
     private Node findParentNode(Node node, int depth){
-        logger.debug("Current Node depth = " + node.depth + "  new Node depth= " + depth);
+        logger.debug("Current Node depth = " + node.depth + "  new Node depth = " + depth);
         if (node.depth < depth) {
             logger.debug(node.depth + " < " + depth + " => parent found = " + node);
             return node;
@@ -68,8 +68,8 @@ public class Node<T> {
     @Override
     public String toString() {
         return "Node{" +
-                "lineID='" + lineID + '\'' +
-                ", children.size=" + ( children != null ? children.size() + "" : 0 ) + "" +
+                " lineID='" + lineID + '\'' +
+                ", children.size= " + ( children != null ? children.size() + "" : 0 ) + "" +
                 ", depth=" + depth +
                 '}';
     }

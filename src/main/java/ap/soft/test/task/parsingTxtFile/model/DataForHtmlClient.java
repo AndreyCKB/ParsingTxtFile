@@ -1,9 +1,14 @@
 package ap.soft.test.task.parsingTxtFile.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public class DataForHtmlClient extends FileStructure {
+
+    public static final Logger logger = LoggerFactory.getLogger(DataForHtmlClient.class);
 
     @JsonIgnore
     private int countNode;
@@ -16,21 +21,26 @@ public class DataForHtmlClient extends FileStructure {
 
     @Override
     public void addString(String currentLine) {
-        if (currentLine.isEmpty() || currentLine.toCharArray()[0] != signSection ){
-            strings.add(currentLine);
+        logger.debug("Current line = \"{}\"", currentLine);
+        if (currentLine.isEmpty() || currentLine.toCharArray()[0] != this.signSection ){
+            this.strings.add(currentLine);
+            logger.info("Line added to list strings, Line = \"{}\"", currentLine);
         }else {
-            strings.add("<a name=\"" + (++countNode) + "\"></a>" + currentLine);
-            currentNode = currentNode.addNode("<a href=\"#" + countNode + "\">" + countNode + "</a>" , getDepth(currentLine.toCharArray()));
+            this.currentNode = this.currentNode.addNode("<a href=\"#" + this.countNode + "\">" + this.countNode + "</a>" , getDepth(currentLine.toCharArray()));
+            logger.info("New node added to file structure");
+            this.strings.add("<a name=\"" + (++this.countNode) + "\"></a>" + currentLine);
+            logger.info("Line added to list strings, Line = \"{}\"", this.strings.get(this.strings.size()-1));
         }
     }
 
     @Override
     protected Node initFirstNode() {
-        return Node.firstNode("<a href=\"#start\">Начало документа</a>");
+        return Node.firstNode("<a href=\"#start\">Start of document</a>");
     }
 
     private void addFirstLine(String currentLine) {
         this.addString(currentLine);
-        strings.set(0,"<a name=\"start\"></a>" + strings.get(0));
+        this.strings.set(0,"<a name=\"start\"></a>" + this.strings.get(0));
+        logger.info("First line created for file structure. Line = \"{}\"", this.strings.get(0));
     }
 }

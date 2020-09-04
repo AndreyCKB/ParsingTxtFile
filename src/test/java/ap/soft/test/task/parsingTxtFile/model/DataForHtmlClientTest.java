@@ -14,15 +14,17 @@ class DataForHtmlClientTest {
     private final DataForHtmlClient clientWithSignSection= new DataForHtmlClient('#',"#first line",new ArrayList<>());
 
     @Test
-    void addStringFirstLine() {
+    void checkInitializeFileStructureClientWithoutSignSection() {
         assertTrue(this.clientWithoutSignSection.strings.size() == 1);
         assertTrue(this.clientWithoutSignSection.firstNode.getDepth() == 0);
         assertTrue(this.clientWithoutSignSection.firstNode.getChildren().isEmpty());
+    }
 
+    @Test
+    void checkInitializeFileStructureClientWithSignSection() {
         assertTrue(this.clientWithSignSection.strings.size() == 1);
         assertTrue(this.clientWithSignSection.firstNode.getDepth() == 0);
         assertTrue(this.clientWithSignSection.firstNode.getChildren().size() == 1);
-
     }
 
     @Test

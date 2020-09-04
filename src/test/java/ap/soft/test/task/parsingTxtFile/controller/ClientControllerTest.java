@@ -16,20 +16,40 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ClientControllerTest {
-        private final ClientController clientController = new ClientController(new HandlerTextFileImpl());
+
+    private final ClientController clientController = new ClientController(new HandlerTextFileImpl());
+
     @Test
-    public void HtmlStatuses() throws IOException {
+    public void checkClientStatusesWithMultipartFileEqualsNull() {
         ResponseEntity<?> responseEntity = clientController.arrayClient(null);
         assertTrue(responseEntity.getStatusCode().equals(HttpStatus.EXPECTATION_FAILED));
 
-        File file = new File("src/test/resources/test.txt");
-        MultipartFile multipartFile = new MockMultipartFile("test.xlsx", new FileInputStream(file));
-        responseEntity = clientController.arrayClient(multipartFile);
-        assertTrue(responseEntity.getStatusCode().equals(HttpStatus.OK));
-
-        file = new File("src/test/resources/testEmpty.txt");
-        multipartFile = new MockMultipartFile("test.xlsx", new FileInputStream(file));
-        responseEntity = clientController.arrayClient(multipartFile);
+        responseEntity = clientController.htmlClient(null);
         assertTrue(responseEntity.getStatusCode().equals(HttpStatus.EXPECTATION_FAILED));
     }
+
+    @Test
+    public void checkClientStatusesOK() throws IOException{
+        File file = new File("src/test/resources/test.txt");
+        MultipartFile multipartFile = new MockMultipartFile("mtest.txt", new FileInputStream(file));
+
+        ResponseEntity<?> responseEntity = clientController.arrayClient(multipartFile);
+        assertTrue(responseEntity.getStatusCode().equals(HttpStatus.OK));
+
+        responseEntity = clientController.htmlClient(multipartFile);
+        assertTrue(responseEntity.getStatusCode().equals(HttpStatus.OK));
+    }
+
+    @Test
+    public void checkClientStatusesWithMultipartFileIsEmpty() throws IOException{
+        File file = new File("src/test/resources/testEmpty.txt");
+        MultipartFile multipartFile = new MockMultipartFile("test.xlsx", new FileInputStream(file));
+
+        ResponseEntity<?> responseEntity = clientController.arrayClient(multipartFile);
+        assertTrue(responseEntity.getStatusCode().equals(HttpStatus.EXPECTATION_FAILED));
+
+        responseEntity = clientController.htmlClient(multipartFile);
+        assertTrue(responseEntity.getStatusCode().equals(HttpStatus.EXPECTATION_FAILED));
+    }
+
 }

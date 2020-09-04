@@ -29,6 +29,7 @@ public class SimpleController {
 
     @GetMapping("/main")
     public String mainA(){
+        logger.debug("HTML page \"view.html\" sent to user");
         return "view";
     }
 
