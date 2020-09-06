@@ -23,6 +23,7 @@ public abstract class FileStructure {
     protected final char signSection;
 
     public FileStructure(char signSection, String currentLine, List<String> strings) {
+        logger.trace("Constructor \"FileStructure\" started");
         this.signSection = signSection;
         this.strings = strings;
         this.firstNode = initFirstNode();
@@ -34,19 +35,24 @@ public abstract class FileStructure {
     protected abstract Node initFirstNode();
 
     public Node getFirstNode() {
-        return firstNode;
+        logger.trace("Method \"getFirstNode\" started");
+        return this.firstNode;
     }
 
     public List<String> getStrings() {
+        logger.trace("Method \"getStrings\" started");
         return Collections.unmodifiableList(strings);
     }
 
     protected int getDepth(char[] chars){
+        logger.trace("Method \"getDepth\" started");
+
         int result = 0;
         logger.debug("Determining the depth of nesting line = {}  Sign section = {}",Arrays.toString(chars), this.signSection);
         while (result < chars.length && chars[ result ] == signSection ){
             result++;
         }
+
         logger.debug("Depth of nesting line = \"{}\"",result );
         return result;
     }

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class HandlerTextFileImplTest {
 
-    private final HandlerTextFile handlerTextFile = new HandlerTextFileImpl();
+    private final HandlerTextFile handlerTextFile = new HandlerTextFileImpl(new FileStructureFactoryImpl('#',100));
     private static List<String> lineFromFile;
     private static MultipartFile multipartFile;
     private static int countSignSection = 0;

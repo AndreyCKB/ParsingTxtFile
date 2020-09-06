@@ -16,12 +16,14 @@ public class ErrorController {
 
     @ExceptionHandler(MultipartException.class)
     ResponseEntity<?> multipartException(MultipartException e) {
+        logger.trace("Method \"multipartException\" started.");
         logger.warn("File not found", e);
         return new ResponseEntity<>("File not found", HttpStatus.EXPECTATION_FAILED);
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     ResponseEntity<?> maxUploadSizeException(MaxUploadSizeExceededException e) {
+        logger.trace("Method \"maxUploadSizeException\" started.");
         logger.warn("Maximum upload file size exceeded", e);
         return new ResponseEntity<>("Maximum upload file size exceeded", HttpStatus.EXPECTATION_FAILED);
     }

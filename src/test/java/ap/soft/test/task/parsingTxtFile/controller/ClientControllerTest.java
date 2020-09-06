@@ -1,5 +1,6 @@
 package ap.soft.test.task.parsingTxtFile.controller;
 
+import ap.soft.test.task.parsingTxtFile.service.FileStructureFactoryImpl;
 import ap.soft.test.task.parsingTxtFile.service.HandlerTextFileImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ClientControllerTest {
 
-    private final ClientController clientController = new ClientController(new HandlerTextFileImpl());
+    private final ClientController clientController = new ClientController(new HandlerTextFileImpl(new FileStructureFactoryImpl('#',100)));
 
     @Test
     public void checkClientStatusesWithMultipartFileEqualsNull() {

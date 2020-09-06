@@ -23,34 +23,40 @@ public class SimpleController {
     private final HandlerTextFile fileProcessing;
 
     public SimpleController(HandlerTextFile fileProcessing) {
+        logger.trace("Constructor \"SimpleController\" started.");
         this.fileProcessing = fileProcessing;
 
     }
 
-    @GetMapping("/main")
-    public String mainA(){
+    @GetMapping("/example")
+    public String example(){
+        logger.trace("Method \"example\" started. @GetMapping(\"/example\")");
         logger.debug("HTML page \"view.html\" sent to user");
         return "view";
     }
 
-    @PostMapping("/main")
-    public String main(@RequestParam("txt_file") MultipartFile file, Model model){
+    @PostMapping("/example")
+    public String example(@RequestParam("txt_file") MultipartFile file, Model model){
+        logger.trace("Method \"example\" started. @PostMapping(\"/example\")");
         logger.info("@PostMapping(/main) with parameter MultipartFile. "
                     + (file != null ? "File.size = " +  file.getSize() + " bytes," + " File.name = " + file.getOriginalFilename() : "null"));
+
         FileStructure fileStructure = null;
         if (file != null && !file.isEmpty()) {
             logger.debug("File processing to start");
+
             try {
                 fileStructure = fileProcessing.parsingTxtFile(file, ClientType.HTML_CLIENT);
             } catch (Exception e) {
                 logger.warn("file could not be processed", e);
                 model.addAttribute("errorMessage", "File is not read");
             }
+
             logger.info("Strings and Nodes adding to model");
             model.addAttribute("strings", fileStructure.getStrings());
             logger.debug("Strings added to model");
             Node firstNode = fileStructure.getFirstNode();
-            model.addAttribute("nodes", "<ul class=\"treeCSS\">" + print(firstNode) + "</ul>");
+            model.addAttribute("nodes", "<ul class=\"treeCSS\">" + getStringFromFileStructure(firstNode) + "</ul>");
             logger.info("Strings and Nodes added to model");
         } else {
             logger.debug("Error message \"File is empty\" sent to user");
@@ -60,21 +66,22 @@ public class SimpleController {
         return "view";
     }
 
-    public String print(Node node){
+    public String getStringFromFileStructure(Node node){
+        logger.trace("Method \"getStringFromFileStructure\" started. @PostMapping(\"/example\")");
         StringBuilder sb = new StringBuilder();
-        print(node, 0, sb);
+        processingFileStructure(node, 0, sb);
         return sb.toString();
     }
 
-    private void print(Node<?> node, int countSpace, StringBuilder result) {
+    private void processingFileStructure(Node<?> node, int countSpace, StringBuilder result) {
         if (!node.getChildren().isEmpty()) {
             result.append("<li>").append(node.getLineID()).append("_(Depth = ").append(node.getDepth()).append(" )<ul>");
             for (Node n : node.getChildren()) {
-                print(n, countSpace + 1, result);
+                processingFileStructure(n, countSpace + 1, result);
             }
             result.append("</ul>");
         } else {
-            result.append("<li>").append(node.getLineID()).append("_(Depth = ").append(node.getDepth());
+            result.append("<li>").append(node.getLineID()).append("_(Depth = ").append(node.getDepth()).append(")");
             return;
         }
     }

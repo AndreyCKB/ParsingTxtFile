@@ -19,20 +19,24 @@ public class ClientController {
     private final HandlerTextFile fileProcessing;
 
     public ClientController(HandlerTextFile fileProcessing) {
+        logger.trace("Constructor \"ClientController\" started.");
         this.fileProcessing = fileProcessing;
     }
 
     @PostMapping(value = "/arrayClient")
     public ResponseEntity<?> arrayClient(@RequestParam("file") MultipartFile file) {
-        return upload(file, ClientType.ARRAY_CLIENT);
+        logger.trace("Method \"arrayClient\" started.");
+        return getDataToClient(file, ClientType.ARRAY_CLIENT);
     }
 
     @PostMapping(value = "/htmlClient")
     public ResponseEntity<?> htmlClient(@RequestParam("file") MultipartFile file) {
-        return upload(file, ClientType.HTML_CLIENT);
+        logger.trace("Method \"htmlClient\" started.");
+        return getDataToClient(file, ClientType.HTML_CLIENT);
     }
 
-    private ResponseEntity<?> upload(@RequestParam("file") MultipartFile file, ClientType clientType)  {
+    private ResponseEntity<?> getDataToClient(@RequestParam("file") MultipartFile file, ClientType clientType)  {
+        logger.trace("Method \"getDataToClient\" started.");
         logger.info("ClientType = " + clientType.name() + " MultipartFile "
                 + (file != null ? "File.size = " +  file.getSize() + " bytes," + " File.name = " + file.getOriginalFilename() : "null"));
         if (file != null && !file.isEmpty()) {
@@ -51,6 +55,7 @@ public class ClientController {
 
     @RequestMapping("/exit")
     public ResponseEntity<?> serviceDisable() {
+        logger.trace("Method \"serviceDisable\" started.");
         logger.debug("Service disable to start");
         disable();
         logger.debug("Message \"Service disabled\" sent client");
@@ -58,6 +63,7 @@ public class ClientController {
     }
 
     private void disable(){
+        logger.trace("Method \"disable\" started.");
         Thread thread = new Thread(() -> {
             try {
                 logger.debug("thread =" + Thread.currentThread().getName() + "started");

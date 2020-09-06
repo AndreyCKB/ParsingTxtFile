@@ -13,6 +13,9 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
         <file>${pathFile}/${currentDate}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>${pathFile}/${currentDate}.%i.log.zip</fileNamePattern>
@@ -34,9 +37,12 @@
     </appender>
 
 
-
     <logger name="ap.soft.test.task.parsingTxtFile" level="debug" additivity="false" >
         <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="ap.soft.test.task.parsingTxtFile" level="trace" additivity="false" >
         <appender-ref ref="STDOUT"/>
     </logger>
 

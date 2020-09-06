@@ -15,13 +15,16 @@ public class DataForHtmlClient extends FileStructure {
 
     public DataForHtmlClient(char signSection, String currentLine, List<String> strings) {
         super(signSection, currentLine, strings);
+        logger.trace("Constructor \"DataForHtmlClient\" started.");
         this.countNode = 0;
         addFirstLine(currentLine);
     }
 
     @Override
     public void addString(String currentLine) {
+        logger.trace("Method \"addString\" started");
         logger.debug("Current line = \"{}\"", currentLine);
+
         if (currentLine.isEmpty() || currentLine.toCharArray()[0] != this.signSection ){
             this.strings.add(currentLine);
             logger.info("Line added to list strings, Line = \"{}\"", currentLine);
@@ -34,11 +37,13 @@ public class DataForHtmlClient extends FileStructure {
     }
 
     @Override
-    protected Node initFirstNode() {
+    protected Node<String> initFirstNode() {
+        logger.trace("Method \"initFirstNode\" started");
         return Node.firstNode("<a href=\"#start\">Start of document</a>");
     }
 
     private void addFirstLine(String currentLine) {
+        logger.trace("Method \"addFirstLine\" started");
         this.addString(currentLine);
         this.strings.set(0,"<a name=\"start\"></a>" + this.strings.get(0));
         logger.info("First line created for file structure. Line = \"{}\"", this.strings.get(0));

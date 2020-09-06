@@ -17,42 +17,57 @@ public class Node<T> {
     private final T lineID;
     private final int depth;
     @JsonIgnore
-    private final Node parent;
+    private final Node<T> parent;
     private final List<Node<T>> children;
 
-    private Node(T lineID, int depth, Node parent) {
+    private Node(T lineID, int depth, Node<T> parent, List<Node<T>> children) {
+        logger.trace("Constructor \"Node\" started");
         this.lineID = lineID;
         this.depth = depth;
         this.parent = parent;
-        this.children = new LinkedList<>();
+        this.children = children;
     }
 
     public T getLineID() {
+        logger.trace("Method \"getLineID\" started");
         return lineID;
     }
 
     public int getDepth() {
+        logger.trace("Method \"getDepth\" started");
         return depth;
     }
 
     public List<Node<T>> getChildren() {
+        logger.trace("Method \"getChildren\" started");
         return children;
     }
 
     public static <T> Node<T> firstNode(T lineID){
-        return new Node(lineID,0, null);
+        logger.trace("Method \"firstNode\" started");
+        return new Node<T>(lineID,0, null, new LinkedList<>());
+    }
+
+    public static <T> Node<T> firstNode(T lineID, List<Node<T>> children){
+        logger.trace("Method \"firstNode\" started");
+        return new Node<T>(lineID,0, null, children);
     }
 
     public <T> Node<T> addNode(T lineID, int depth){
-        Node<T> parent = findParentNode(this, depth);
-        Node<T> node = new Node(lineID, depth, parent);
+        logger.trace("Method \"addNode\" started");
+
+        Node<T> parent = findParentNode( this, depth);
+        Node<T> node = new Node<T>(lineID, depth, parent, new LinkedList<>());
         parent.children.add(node);
+
         logger.info("Created " + node + " his parent " + parent);
         return node;
     }
 
-    private Node findParentNode(Node node, int depth){
+    private Node findParentNode(Node<T> node, int depth){
+        logger.trace("Method \"findParentNode\" started");
         logger.debug("Current Node depth = " + node.depth + "  new Node depth = " + depth);
+
         if (node.depth < depth) {
             logger.debug(node.depth + " < " + depth + " => parent found = " + node);
             return node;
