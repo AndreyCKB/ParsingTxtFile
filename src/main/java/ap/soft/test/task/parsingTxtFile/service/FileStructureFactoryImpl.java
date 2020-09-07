@@ -19,10 +19,10 @@ public class FileStructureFactoryImpl implements FileStructureFactory{
     public static final Logger logger = LoggerFactory.getLogger(FileStructureFactoryImpl.class);
 
     @Value("${fileStructure.default.signSection}")
-    private char defaultSignSection;
+    private char defaultSignSection = '$';
     @Value("${fileStructure.default.sizeListStrings}")
-    private int sizeListStrings;
-    private List<String> strings = new ArrayList<>(this.sizeListStrings);
+    private int sizeListStrings = 100;
+
 
     @Autowired
     public FileStructureFactoryImpl() {
@@ -30,15 +30,15 @@ public class FileStructureFactoryImpl implements FileStructureFactory{
     }
 
     public FileStructureFactoryImpl(char defaultSignSection, int sizeListStrings) {
-        logger.trace("Constructor \"FileStructureFactoryImpl\" started. Parameters: defaultSignSection = \'{}\', sizeListStrings = \'{}\'", defaultSignSection, sizeListStrings);
+        logger.trace("Constructor \"FileStructureFactoryImpl\" started. Parameters: defaultSignSection = \'{}\', sizeListStrings = {}", defaultSignSection, sizeListStrings);
         this.defaultSignSection = defaultSignSection;
         this.sizeListStrings = sizeListStrings;
     }
 
     public FileStructure getDefaultFileStructure(ClientType clientType, String currentLine){
-        logger.trace("Method \"getDefaultFileStructure\" started. Parameters: defaultSignSection = \\'{}\\', sizeListStrings = \\'{}\\'\"",
+        logger.trace("Method \"getDefaultFileStructure\" started. Parameters: defaultSignSection = \'{}\', sizeListStrings = {}",
                       this.defaultSignSection, this.sizeListStrings );
-        return createFileStructure(clientType, this.defaultSignSection, currentLine, this.strings);
+        return createFileStructure(clientType, this.defaultSignSection, currentLine, new ArrayList<>(this.sizeListStrings));
     }
 
     public FileStructure getCustomFileStructure(ClientType clientType, char signSection, String currentLine, List<String> strings){
